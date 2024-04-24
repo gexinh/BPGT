@@ -1,7 +1,5 @@
 # Predicting Genetic Mutation from Whole Slide Images via Biomedical-Linguistic Knowledge Enhanced Multi-label Classification
 
-<u>**This code is refined for the paper review, in which we mark important scripts for a clear demonstration and dismiss scripts irrelevant to the proposed model. We will release the complete code if the paper is accepted.**<u>
-
 - - -  
   
 # Step 1 Install Packages
@@ -34,7 +32,6 @@ where the '--mix_list' contains the indices of cancer types that you want to use
 
 this code will call the 'main.py'. In addtion, we could alter the parameters of '--graph_module', '--backbone', '--word_embedd_model' to vary the gene encoder, visual extractor, and linguistic encoding of bpgt respectively.
 
-# Additional Illustration for Reviewers
 ## Code Structure
     -main.py, pipeline.py, etc
     |-model
