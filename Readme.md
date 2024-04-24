@@ -2,6 +2,9 @@
   Gexin Huang, Chenfei Wu, Mingjie Li, Xiaojun Chang, Ling Chen, Ying Sun, Shen Zhao, Xiaodan Liang, and Liang Lin
 
 ![architecture](./Fig2.png)
+
+![gene encoder](./Fig3.png)
+
 - - -  
   
 # Step 1 Install Packages
@@ -32,7 +35,7 @@ where the '--mix_list' contains the indices of cancer types that you want to use
 # Step 3 Run Experiments
     python exp_script --graph_module bpgt --backbone trans_mil --word_embedd_model biobert
 
-this code will call the 'main.py'. In addtion, we could alter the parameters of '--graph_module', '--backbone', '--word_embedd_model' to vary the gene encoder, visual extractor, and linguistic encoding of bpgt respectively.
+this code will call the 'main.py'. In addition, we could alter the parameters of '--graph_module', '--backbone', '--word_embedd_model' to vary the gene encoder, visual extractor, and linguistic encoding for BPGT respectively.
 
 ## Code Structure
     -main.py, pipeline.py, etc
