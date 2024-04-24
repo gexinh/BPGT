@@ -1,9 +1,11 @@
-<u>**This code is refined for the paper review, which we mark important scripts for a clear demonstration and dismiss scripts irrevant about the proposed model. We will release the complete code if the paper is accepted.**<u>
+# Predicting Genetic Mutation from Whole Slide Images via Biomedical-Linguistic Knowledge Enhanced Multi-label Classification
+
+<u>**This code is refined for the paper review, in which we mark important scripts for a clear demonstration and dismiss scripts irrelevant to the proposed model. We will release the complete code if the paper is accepted.**<u>
 
 - - -  
   
 # Step 1 Install Packages
-prepare the environment and packages you need as following commands:
+Prepare the environment and packages you need as following commands:
 
     conda env create -f environment.yaml
     pip install -r requirements.txt
@@ -14,14 +16,14 @@ Prepare the dataset from TCGA via the tool 'gdc-client':
 
     gdc-client download -m ./PATH_OF_DATA_CART_FROM_TCGA -d ./YOUR_SAVE_PATH 
 Then, we can implement the data preprocessing as follows: 
-1) masking, segment, and slicing patches; [create_patches_fp.py]
+1) masking, segmenting, and slicing patches; [create_patches_fp.py]
 2) create cleaning dataset [create_step_2_csv.py]
-3) create label space from cleaned dataset [create_step_3_csv.py]
+3) create label space from the cleaned dataset [create_step_3_csv.py]
 4) create dataset splits [create_splits.py]
 5) extract the knowledge graph [graph_construction.py]
-6) extract patch-level features from pre-trained model [extract_features_fp.py/extract_features_fp.py/] 
+6) extract patch-level features from the pre-trained model [extract_features_fp.py/extract_features_fp.py/] 
 
-The whole pipeline is integrated into the pipeline.py, which we could directly run following command:
+The whole pipeline is integrated into the pipeline.py, which we could directly run the following command:
 
     python [0]_pipeline.py --data tcga --mag 20 -- ori_patch_size 256 --mix_list 012345678
 
@@ -57,17 +59,17 @@ this code will call the 'main.py'. In addtion, we could alter the parameters of 
     |-datasets: customized pytorch dataset for WSI
     ||-wsi_dataset.py
     |
-    |-vis_utils: utlities of model visulization
+    |-vis_utils: utilities of model visualization
 
 ## Important Codes
 > **./model/base_model.py**:   
-it contains details of modified MIL-backbone utilized for visual extractor and varying graph aggregation module for the gene encoder. 
+it contains details of the modified MIL-backbone utilized for the visual extractor and varying graph aggregation module for the gene encoder. 
 
 > **./utils/graph_utils.py**:  
-it contains implementation details of encoding biomedical knowledge 
+it contains implementation details for encoding biomedical knowledge 
 
 > **./utils/linguistic_encoding.py**:  
-it contains implementation details of encoding linguistic knowledge 
+it contains implementation details for encoding linguistic knowledge 
 
 > **./data/extract_biomedical_knowledge.py**:  
-it contains implementation details of encoding linguistic knowledge 
+it contains implementation details for extracting linguistic knowledge from texture.
