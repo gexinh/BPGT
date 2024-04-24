@@ -1,7 +1,7 @@
 # Predicting Genetic Mutation from Whole Slide Images via Biomedical-Linguistic Knowledge Enhanced Multi-label Classification
   Gexin Huang, Chenfei Wu, Mingjie Li, Xiaojun Chang, Ling Chen, Ying Sun, Shen Zhao, Xiaodan Liang, and Liang Lin
 
-![overflow](./Fig2.pdf)
+![architecture](./Fig2.png)
 - - -  
   
 # Step 1 Install Packages
