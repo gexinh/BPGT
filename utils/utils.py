@@ -238,9 +238,9 @@ class AverageMeter(object):
 
 # comparative multi-label loss
 nINF = -100
-class multilabel_categorical_crossentropy(nn.Module):
-    def __init__(self, margin):
-        super(multilabel_categorical_crossentropy, self).__init__()
+class comparative_multi_label_loss(nn.Module):
+    def __init__(self, margin=4.0):
+        super(comparative_multi_label_loss, self).__init__()
         self.margin = margin
 
     def forward(self, x, y):

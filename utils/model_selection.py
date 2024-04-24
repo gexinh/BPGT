@@ -1,6 +1,6 @@
 """
     Choose Model based on args
-                                        Geneformer   GCN    graph transformer   MLP multi-label
+                                        bpgt   GCN    graph transformer   MLP multi-label
     deephis: resnet + mlp 
     genehe: resnet + self-attention
     abmil: dino + abmil
@@ -12,15 +12,15 @@
 def model_selection(args):
     # transfer multi-label classification
 
-    if args.model == 'deephis':
+    if args.model == 'deephis-ve':
         args.agg_method = 'dense'
-        args.model_size = '1024_small'
-        args.pretrained_model = 'resnet'
+        args.model_size = 'dino'
+        args.pretrained_model = 'dino'
 
-    elif args.model == 'genehe':
+    elif args.model == 'genehe-ve':
         args.agg_method = 'self_att'
-        args.model_size = '1024_small'
-        args.pretrained_model = 'resnet'
+        args.model_size = 'dino'
+        args.pretrained_model = 'dino'
 
     elif args.model == 'abmil':
         args.agg_method = 'abmil'
@@ -46,7 +46,7 @@ def model_selection(args):
     return args
 
 def module_selection(args, model_dict):
-    if args.graph_module == 'geneformer':
+    if args.graph_module == 'bpgt':
         """ construct the graph 
         """
         from .graph_utils import mutual_info_encoding, organ_positional_encoding

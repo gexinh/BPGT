@@ -53,7 +53,7 @@ def get_args_parser():
     # TODO: model selection
     parser.add_argument('--learnable_embedd', default=0,type=int,help='if is learnable')
     parser.add_argument('--word_embedd_model', default='biobert', choices=['biobert','clinical_bert','pubmed_bert','scibert'], help='Choose Bert ')
-    parser.add_argument('--model', type=str, choices=['deephis', 'geneh', 'att_mil', 'sa_mil','hipt','trans_mil','kat'], default='trans_mil', 
+    parser.add_argument('--model', type=str, choices=['deephis-ve', 'genehe-ve', 'att_mil', 'sa_mil','hipt','trans_mil','kat'], default='trans_mil', 
                         help='exp model')
 
     parser.add_argument('--mode', type=str, choices=['train', 'infer'], default='train', 
@@ -69,7 +69,7 @@ def get_args_parser():
                         help='type of model (default: binary classification, multi-label classification, or multi-instance learning)')
     parser.add_argument('--loss', type=str, choices=['focal', 'ce', 'cb'], default='ce', help='model loss')
         #TODO: for multi-label task
-    parser.add_argument('--graph_module', type=str, choices=['gcn','graph_transformer', 'geneformer','mlp','mcat'], default='gcn', help='the approach of using graph convolutional network')    
+    parser.add_argument('--graph_module', type=str, choices=['gcn','graph_transformer', 'bpgt','mlp','mcat'], default='gcn', help='the approach of using graph convolutional network')    
     parser.add_argument('--agg_method', choices = ['att', 'trans_mil','kat', 'hipt','sa_mil'], default='att', help='choose the method of patch aggregation method for ML decoder')
     parser.add_argument('--decoder_layer', type=int, default=1, help='number of multi-label decoder`s layer (default: 1)')
     parser.add_argument('--encoder_layer', type=int, default=1, help='number of transformer encoder`s layer (default: 1)')
@@ -272,17 +272,10 @@ else:
 # normalized Laplacian matrix #
 #                             #
 from scipy.sparse import csgraph
-
-# add new row for adjacency matrix due to the all-zero label 
-adj_mx = np.append(adj_mx, np.zeros((1, adj_mx.shape[1])), axis=0)
-adj_mx = np.append(adj_mx, np.zeros((adj_mx.shape[0],1)), axis=1)
-args.un_adj = torch.tensor(adj_mx,dtype=torch.float32) # unprocess
-adj_mx = csgraph.laplacian(adj_mx, normed=True)
-
+from utils.utils import normalize
+import scipy.sparse as sp
 # add self loop for the zero entry on the diagnal line
-for i in range(adj_mx.shape[0]):
-    if any(adj_mx[i,:])==0:
-        adj_mx[i,i] = 1
+adj_mx = normalize(adj_mx + np.diag(np.max(adj_mx,axis=0).tolist()[0]) + sp.eye(adj_mx.shape[0]))
 
 # to tensor
 adj_mx = torch.tensor(adj_mx,dtype=torch.float32)
